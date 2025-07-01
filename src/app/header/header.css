@@ -1,0 +1,10 @@
+header {
+  display: flex;
+  padding-inline: 16px;
+  padding-border-left: 8px;
+  background-color: hotpink;
+  color: white;
+  align-items: center;
+  justify-content: space-between;
+
+}
