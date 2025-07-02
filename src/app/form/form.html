@@ -1,0 +1,24 @@
+<p>Add Task</p>
+
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()" >
+  <label for="title">Task: </label>
+  <input id="title" type="text" placeholder="e.g. make breakfast" formControlName="title"/>
+
+  <label for="due">Due: </label>
+  <input id="due" type="datetime-local" formControlName="due_date"/>
+
+  <button type="submit" [disabled]="!taskForm.valid">Submit</button>
+
+</form>
+
+<h1> {{ listOfTasks.length }}</h1>
+
+<ol>
+@for (task of listOfTasks; track task.id){
+  <li>
+    Task: {{task.title}}
+    Due: {{task.due_date}}
+  </li>
+}
+
+</ol>
