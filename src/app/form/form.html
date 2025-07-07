@@ -2,22 +2,32 @@
 
 <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" >
   <mat-form-field>
-    <mat-label for="title">Task: </mat-label>
+    <mat-label for="title">Task:</mat-label>
     <input id="title" type="text" placeholder="e.g. make breakfast" matInput formControlName="title"/>
   </mat-form-field>
 
   <mat-form-field>
-  <mat-label for="due">Due: </mat-label>
-  <input id="due" type="date" formControlName="due_date" matInput [matDatepicker]="due"/>
-    <mat-datepicker-toggle matIconSuffix [for]="due"></mat-datepicker-toggle>
+  <mat-label>Due date:</mat-label>
+  <input id="date" formControlName="date" matInput [matDatepicker]="due">
+    <mat-datepicker-toggle matIconSuffix [for]="due"/>
     <mat-datepicker #due></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Time:</mat-label>
+    <input id="time" matInput [matTimepicker]="timepicker" formControlName="time">
+    <mat-timepicker #timepicker/>
+    <mat-timepicker-toggle [for]="timepicker" matSuffix/>
   </mat-form-field>
 
   <button matButton="elevated" type="submit" [disabled]="!taskForm.valid">Submit</button>
 
 </form>
 
-<h1> {{ listOfTasks.length }}</h1>
+<h1> {{ listOfTasks.length }} tasks </h1>
+
+
+
 @for (task of listOfTasks; track task.id){
 <mat-expansion-panel hideToggle>
   <mat-expansion-panel-header>
@@ -25,6 +35,7 @@
       Task: {{task.title}}
     </mat-panel-title>
   </mat-expansion-panel-header>
-  Due: {{task.due_date}}
+    Due: {{task.date}}
+    Time: {{task.time}}
 </mat-expansion-panel>
 }
