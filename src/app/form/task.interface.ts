@@ -3,4 +3,5 @@ export interface Task {
   date?: string
   time?: string
   id: number
+  completed?: boolean
 }
