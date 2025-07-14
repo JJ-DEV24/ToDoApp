@@ -42,6 +42,11 @@ export class Form {
     this.listOfTasks.push(task)
   }
 
+  deleteTask(id: number) {
+    this.listOfTasks = this.listOfTasks.filter(eachTask=> eachTask.id !== id)
+
+  };
+
   // protected readonly onsubmit = onsubmit;
   protected readonly console = console;
   protected readonly FormControl = FormControl;

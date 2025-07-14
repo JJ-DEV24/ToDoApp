@@ -33,9 +33,6 @@
 <!--Display-->
 <h1> Incompleted tasks </h1>
 
-
-
-
 @for (task of listOfTasks; track task.id) {
   @if (task.completed === false) {
     <mat-expansion-panel hideToggle>
@@ -46,9 +43,13 @@
       </mat-expansion-panel-header>
       Due: {{ task.date | date: 'EEEE d MMMM y' }}
       Time: {{ task.time | date: 'hh:mm a' }}
+
       <p>Completed:
         <mat-slide-toggle [(ngModel)]="task.completed"></mat-slide-toggle>
       </p>
+        <button mat-icon-button (click)="deleteTask(task.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
     </mat-expansion-panel>
   }
 } @empty {
@@ -74,6 +75,9 @@
       <p>Completed:
         <mat-slide-toggle [(ngModel)]="task.completed"></mat-slide-toggle>
       </p>
+      <button mat-icon-button (click)="deleteTask(task.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
     </mat-expansion-panel>
   }
 }
