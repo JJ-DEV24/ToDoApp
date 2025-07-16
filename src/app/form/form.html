@@ -1,7 +1,5 @@
-<p>Add Task</p>
-
-
-<form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+<!--Form - new task-->
+<form id="new-task" [formGroup]="taskForm" (ngSubmit)="onSubmit()">
 
   <!--Title-->
   <mat-form-field>
@@ -30,27 +28,67 @@
 
 </form>
 
-<!--Display-->
-<h1> Incompleted tasks </h1>
 
+<p>Add Task</p>
+<form id="add-task" [formGroup]="taskForm" (ngSubmit)="onSubmit()"></form>
+
+
+<h1> Incompleted tasks </h1>
 @for (task of listOfTasks; track task.id) {
   @if (task.completed === false) {
-    <mat-expansion-panel hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Task: {{ task.title }}
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      Due: {{ task.date | date: 'EEEE d MMMM y' }}
-      Time: {{ task.time | date: 'hh:mm a' }}
+    @if (task.editMode === true) {
 
-      <p>Completed:
-        <mat-slide-toggle [(ngModel)]="task.completed"></mat-slide-toggle>
-      </p>
+      <form id="edit-task" [formGroup]="taskForm" (ngSubmit)="onSubmitEdit(task)">
+
+        <!--Title-->
+        <mat-form-field>
+          <mat-label for="title">Task:</mat-label>
+          <input id="title" type="text" value="{{task.title}}" matInput  matNativeControl formControlName="title"/>
+        </mat-form-field>
+
+        <!--Due date-->
+        <mat-form-field>
+          <mat-label>Due date:</mat-label>
+          <input id="date" value="{{task.date}}" formControlName="date" matInput matNativeControl [matDatepicker]="due">
+          <mat-datepicker-toggle matIconSuffix [for]="due"/>
+          <mat-datepicker #due></mat-datepicker>
+        </mat-form-field>
+
+        <!--Time-->
+        <mat-form-field>
+          <mat-label>Time:</mat-label>
+          <input id="time" value="{{task.time}}" matInput [matTimepicker]="timepicker" matNativeControl formControlName="time">
+          <mat-timepicker #timepicker/>
+          <mat-timepicker-toggle [for]="timepicker" matSuffix/>
+        </mat-form-field>
+
+        <!--Submit button-->
+        <button matButton="elevated" type="submit" [disabled]="!taskForm.valid">Update</button>
+        <button matButton="elevated" type="submit" (click)="cancelEdit(task)">Cancel Edit</button>
+      </form>
+
+    } @else {
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Task: {{ task.title }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        Due: {{ task.date | date: 'EEEE d MMMM y' }}
+        Time: {{ task.time | date: 'hh:mm a' }}
+
+        <p>Completed:
+          <mat-slide-toggle [(ngModel)]="task.completed"></mat-slide-toggle>
+        </p>
         <button mat-icon-button (click)="deleteTask(task.id)">
           <mat-icon>delete</mat-icon>
         </button>
-    </mat-expansion-panel>
+
+        <button mat-icon-button type="submit" (click)="editTask(task)">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-expansion-panel>
+    }
   }
 } @empty {
   <p>No tasks</p>
@@ -60,28 +98,67 @@
 <mat-divider></mat-divider>
 
 <h1> Completed tasks </h1>
-
 @for (task of listOfTasks; track task.id) {
   @if (task.completed === true) {
+    @if (task.editMode === true) {
 
-    <mat-expansion-panel hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Task: {{ task.title }}
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      Due: {{ task.date | date: 'EEEE d MMMM y' }}
-      Time: {{ task.time | date: 'hh:mm a' }}
-      <p>Completed:
-        <mat-slide-toggle [(ngModel)]="task.completed"></mat-slide-toggle>
-      </p>
-      <button mat-icon-button (click)="deleteTask(task.id)">
-        <mat-icon>delete</mat-icon>
-      </button>
-    </mat-expansion-panel>
+      <form id="edit-task" [formGroup]="taskForm" (ngSubmit)="onSubmitEdit(task)">
+
+        <!--Title-->
+        <mat-form-field>
+          <mat-label for="title">Task:</mat-label>
+          <input id="title" type="text" value="{{task.title}}" matInput  matNativeControl formControlName="title"/>
+        </mat-form-field>
+
+        <!--Due date-->
+        <mat-form-field>
+          <mat-label>Due date:</mat-label>
+          <input id="date" value="{{task.date}}" formControlName="date" matInput matNativeControl [matDatepicker]="due">
+          <mat-datepicker-toggle matIconSuffix [for]="due"/>
+          <mat-datepicker #due></mat-datepicker>
+        </mat-form-field>
+
+        <!--Time-->
+        <mat-form-field>
+          <mat-label>Time:</mat-label>
+          <input id="time" value="{{task.time}}" matInput [matTimepicker]="timepicker" matNativeControl formControlName="time">
+          <mat-timepicker #timepicker/>
+          <mat-timepicker-toggle [for]="timepicker" matSuffix/>
+        </mat-form-field>
+
+        <!--Submit button-->
+        <button matButton="elevated" type="submit" [disabled]="!taskForm.valid">Update</button>
+
+        <button matButton="elevated" type="submit" (click)="cancelEdit(task)">Cancel Edit</button>
+
+      </form>
+
+    } @else {
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Task: {{ task.title }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        Due: {{ task.date | date: 'EEEE d MMMM y' }}
+        Time: {{ task.time | date: 'hh:mm a' }}
+
+        <p>Completed:
+          <mat-slide-toggle [(ngModel)]="task.completed"></mat-slide-toggle>
+        </p>
+        <button mat-icon-button (click)="deleteTask(task.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+
+        <button mat-icon-button type="submit" (click)="editTask(task)">
+          <mat-icon>edit</mat-icon>
+        </button>
+
+
+      </mat-expansion-panel>
+    }
   }
-}
-
-@empty {
+} @empty {
   <p>No tasks</p>
 }
+

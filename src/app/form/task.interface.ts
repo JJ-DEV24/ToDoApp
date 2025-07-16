@@ -4,4 +4,5 @@ export interface Task {
   time?: string
   id: number
   completed?: boolean
+  editMode?: boolean
 }
