@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["angular:styles/component:css;c932dd1aeffc3aa3eaffc4e4a55c3c3f10bf0b70ab907aa13b31f44d2ff48ad0;/Users/jtjos/WebstormProjects/ToDoApp/src/app/app.ts"],
+  "sourcesContent": ["\n      main {\n        padding: 16px;\n      }\n    "],
+  "mappings": "AACM,KADN,QAEiB,IACX",
+  "names": []
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/header/header.css"],
+  "sourcesContent": ["header {\n  display: flex;\n  padding-inline: 16px;\n  padding-border-left: 8px;\n  background-color: hotpink;\n  color: white;\n  align-items: center;\n  justify-content: space-between;\n\n}\n"],
+  "mappings": "AAAA,OACE,QAAS,KACT,eAAgB,KAChB,oBAAqB,IACrB,iBAAkB,QAClB,MAAO,KACP,YAAa,OACb,gBAAiB,aAEnB",
+  "names": []
+}
