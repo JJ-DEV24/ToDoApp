@@ -13,6 +13,13 @@
         "build": {
           "outputIndexPath": "dist/ToDoApp/browser/index.html",
           "builder": "@angular/build:application",
+          "scripts": [
+            {
+              "input": "src/external-module/main.js",
+              "inject": false,
+              "bundleName": "external-module"
+            }
+          ],
           "options": {
             "outputPath": "dist/ToDoApp",
             "outputMode": "static",

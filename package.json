@@ -7,7 +7,8 @@
     "build": "ng build --base-href /ToDoApp",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "deploy": "ng build --base-href /ToDoApp && npx angular-cli-ghpages --dir=dist/ToDoApp/browser"
+    "deploy": "npx angular-cli-ghpages --dir=dist/TodoApp/browser --no-silent",
+    "github-build": "ng build --configuration production --base-href 'https://jj-dev24.github.io/ToDoApp/'"
   },
   "prettier": {
     "overrides": [
